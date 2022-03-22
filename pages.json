@@ -1,0 +1,105 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "智障学工",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/history/index",
+      "style": {
+        "navigationBarTitleText": "历史记录",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/qr-code/index",
+      "style": {
+        "navigationBarTitleText": "二维码",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/user/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/form/index",
+      "style": {
+        "navigationBarTitleText": "表单"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#999794",
+    "selectedColor": "#33312e",
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icon/homepage.png",
+        "selectedIconPath": "static/icon/homepage1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/history/index",
+        "iconPath": "static/icon/lab.png",
+        "selectedIconPath": "static/icon/lab1.png",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "iconPath": "static/icon/my.png",
+        "selectedIconPath": "static/icon/my1.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "usingComponents": {
+      "van-button": "/wxcomponents/vant/button/index",
+      "van-search": "/wxcomponents/vant/button/index",
+      "van-loading": "/wxcomponents/vant/button/index",
+      "van-icon": "/wxcomponents/vant/button/index",
+      "van-image": "/wxcomponents/vant/button/index",
+      "van-cell": "/wxcomponents/vant/button/index",
+      "van-cell-group": "/wxcomponents/vant/button/index",
+      "van-row": "/wxcomponents/vant/button/index",
+      "van-col": "/wxcomponents/vant/button/index",
+      "van-field": "/wxcomponents/vant/button/index",
+      "van-popup": "/wxcomponents/vant/button/index",
+      "van-toast": "/wxcomponents/vant/button/index",
+      "van-picker": "/wxcomponents/vant/button/index",
+      "van-radio": "/wxcomponents/vant/button/index",
+      "van-radio-group": "/wxcomponents/vant/button/index",
+      "van-checkbox": "/wxcomponents/vant/button/index",
+      "van-checkbox-group": "/wxcomponents/vant/button/index",
+      "van-uploader": "/wxcomponents/vant/button/index",
+      "van-calendar": "/wxcomponents/vant/button/index",
+      "van-grid": "/wxcomponents/vant/button/index",
+      "van-grid-item": "/wxcomponents/vant/button/index",
+      "van-dialog": "/wxcomponents/vant/dialog/index",
+      "transition": "/wxcomponents/vant/transition/index",
+      "van-overlay": "/wxcomponents/vant/overlay/index",
+      "van-skeleton": "/wxcomponents/vant/skeleton/index",
+      "van-collapse": "/wxcomponents/vant/collapse/index",
+      "van-collapse-item": "/wxcomponents/vant/collapse-item/index",
+      "van-tag": "/wxcomponents/vant/tag/index",
+      "van-nav-bar": "/wxcomponents/vant/nav-bar/index",
+      "van-slider": "/wxcomponents/vant/slider/index",
+      "van-dropdown-menu": "/wxcomponents/vant/dropdown-menu/index",
+      "van-dropdown-item": "/wxcomponents/vant/dropdown-item/index",
+      "van-empty": "/wxcomponents/vant/empty/index"
+    }
+  }
+}
