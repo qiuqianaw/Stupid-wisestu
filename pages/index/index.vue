@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getApplyList } from '@/api/module.js'
+import { getApplyList, updateApplyDetail } from '@/api/module.js'
 import detail from './components/detail.vue'
 
 export default {
