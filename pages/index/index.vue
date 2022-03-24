@@ -5,15 +5,15 @@
     >
     <view>
       <view v-if="applyList == null">
-        <van-empty description="暂无需要填写的信息收集～" />
+        <van-empty description="暂无需要填写的信息收集，请刷新试试～" />
       </view>
-      <detail :applyList="applyList"></detail>
+      <detail v-if="applyList != null" :applyList="applyList"></detail>
     </view>
   </view>
 </template>
 
 <script>
-import { getApplyList, updateApplyDetail } from '@/api/module.js'
+import { getApplyList } from '@/api/module.js'
 import detail from './components/detail.vue'
 
 export default {
@@ -25,15 +25,39 @@ export default {
       applyList: null
     }
   },
+  onShow() {
+    const userInfo = uni.getStorageSync('userInfo')
+    if (!userInfo) {
+      this.applyList = null
+      uni.showToast({
+        icon: 'error',
+        title: '请先登录',
+        duration: 1000
+      })
+    } else {
+      if (!this.applyList) {
+        this.test()
+      }
+    }
+  },
   onLoad() {
-    this.test()
+    const userInfo = uni.getStorageSync('userInfo')
+    if (userInfo) {
+      this.test()
+    } else {
+      uni.showToast({
+        icon: 'error',
+        title: '请先登录',
+        duration: 1000
+      })
+    }
   },
   methods: {
     test() {
+      let _this = this
       getApplyList().then((res) => {
-        console.log(res)
         if (res.data.result.list.length != 0) {
-          this.applyList = res.data.result.list
+          _this.applyList = res.data.result.list
         }
       })
     }

@@ -34,7 +34,6 @@
 </template>
 <script>
 import { loginout } from '@/api/module.js'
-import Toast from '@/wxcomponents/vant/toast/toast.js'
 
 export default {
   data() {
@@ -82,24 +81,9 @@ export default {
             title: '登陆成功',
             duration: 1000
           })
-
-          //跳转页面
-          let pages = getCurrentPages()
-          var delta = 1
-          for (var index in pages) {
-            if (pages[index].route == 'pages/login/index') {
-              delta = pages.length - index
-              break
-            }
-          }
-          let second = 1
-          const timer = setInterval(() => {
-            second -= 1
-            clearInterval(timer)
-            uni.navigateBack({
-              delta: delta
-            })
-          }, 1000)
+          uni.navigateBack({
+            url: '/pages/user/index'
+          })
         }
       })
     }

@@ -30,7 +30,7 @@
           hover-class="btn-hover"
           v-for="(item, index) in formList"
           :key="index"
-          @click="goto(item)"
+          @click="logout()"
         >
           <view class="content">
             <text :class="item.class"></text>
@@ -43,35 +43,28 @@
 </template>
 
 <script>
-import { loginout } from '@/api/module.js'
-
 export default {
   methods: {
-    goto(item) {
-      if (item.lable === '退出登陆') {
-        uni.showModal({
-          title: '提示',
-          showCancel: true,
-          content: '确认退出吗？',
-          success: function (res) {
-            if (res.confirm) {
-              uni.showLoading({
-                title: '正在退出'
-              })
-              // console.log('退出', res)
-              uni.hideLoading()
-              uni.clearStorageSync()
-              uni.showToast({
-                title: '退出成功'
-              })
-              this.userInfo = {}
-              uni.redirectTo({
-                url: '/pages/user/index'
-              })
-            }
+    logout() {
+      let _this = this
+      uni.showModal({
+        title: '提示',
+        showCancel: true,
+        content: '确认退出吗？',
+        success: function (res) {
+          if (res.confirm) {
+            uni.showLoading({
+              title: '正在退出'
+            })
+            uni.hideLoading()
+            uni.clearStorageSync()
+            uni.showToast({
+              title: '退出成功'
+            })
+            _this.userInfo = null
           }
-        })
-      }
+        }
+      })
     },
     login_() {
       uni.navigateTo({
@@ -98,8 +91,23 @@ export default {
       ]
     }
   },
-
+  onShow() {
+    const userInfo = uni.getStorageSync('userInfo')
+    if (!userInfo) {
+      uni.showToast({
+        icon: 'error',
+        title: '请先登录',
+        duration: 1000
+      })
+    }
+  },
   onLoad() {
+    const userInfo = uni.getStorageSync('userInfo')
+    if (userInfo) {
+      this.userInfo = userInfo
+    }
+  },
+  onShow() {
     const userInfo = uni.getStorageSync('userInfo')
     if (userInfo) {
       this.userInfo = userInfo

@@ -2,9 +2,9 @@
   <view class="content">
     <view>
       <view v-if="applyList == null">
-        <van-empty description="暂无需要填写的信息收集～" />
+        <van-empty description="暂无需要填写的信息收集，请刷新试试～" />
       </view>
-      <detail :applyList="applyList"></detail>
+      <detail v-if="applyList != null" :applyList="applyList"></detail>
     </view>
   </view>
 </template>
@@ -23,12 +23,35 @@ export default {
     }
   },
   onLoad() {
-    this.test()
+    const userInfo = uni.getStorageSync('userInfo')
+    if (userInfo) {
+      this.test()
+    } else {
+      uni.showToast({
+        icon: 'error',
+        title: '请先登录',
+        duration: 1000
+      })
+    }
+  },
+  onShow() {
+    const userInfo = uni.getStorageSync('userInfo')
+    if (!userInfo) {
+      this.applyList = null
+      uni.showToast({
+        icon: 'error',
+        title: '请先登录',
+        duration: 1000
+      })
+    } else {
+      if (!this.applyList) {
+        this.test()
+      }
+    }
   },
   methods: {
     test() {
       getHisApplyList().then((res) => {
-        console.log(res)
         if (res.data.result.list.length != 0) {
           this.applyList = res.data.result.list
         }
