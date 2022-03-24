@@ -74,22 +74,8 @@ export default {
       }
     },
     login_() {
-      loginout().then((res) => {
-        console.log(res)
-
-        let userInfo = {
-          login_name: res.data.user.login_name,
-          name: res.data.user.name,
-          role_id: res.data.user.role_id,
-          role_type: res.data.user.role_type,
-          sex: res.data.user.sex,
-          short_pwd: res.data.user.short_pwd,
-          token: res.header.token
-        }
-        uni.setStorage({
-          key: 'userInfo',
-          data: userInfo
-        })
+      uni.navigateTo({
+        url: '/pages/login/index'
       })
     }
   },

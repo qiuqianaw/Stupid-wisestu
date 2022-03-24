@@ -15,6 +15,12 @@
       }
     },
     {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登陆"
+      }
+    },
+    {
       "path": "pages/tcmap/index",
       "style": {
         "navigationBarTitleText": "定位",
