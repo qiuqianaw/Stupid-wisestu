@@ -58,6 +58,10 @@ export default {
       getApplyList().then((res) => {
         if (res.data.result.list.length != 0) {
           _this.applyList = res.data.result.list
+          // 过滤非每日填报
+          _this.applyList = this.applyList.filter((elem) => {
+            return elem.title == '每日填报'
+          })
         }
       })
     }

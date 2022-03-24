@@ -118,7 +118,12 @@
               /></van-cell>
             </view>
             <view style="margin: 16px">
-              <van-button round block type="info" @click="onSubmit"
+              <van-button
+                :disabled="!submitValid"
+                round
+                block
+                type="info"
+                @click="onSubmit"
                 >提交</van-button
               >
             </view>
@@ -144,6 +149,7 @@ import {
 export default {
   data() {
     return {
+      submitValid: true,
       form: [],
       lastForm: [],
       show: false,
@@ -269,7 +275,11 @@ export default {
       _this.otherInfo = res.data.result
       _this.lastForm = res.data.lastInfo
       _this.form = res.data.result.info_config
-      // console.log('res', res)
+      _this.position = res.data.result.info_result
+      console.log('form detail', res)
+      if (res.data.result.apply_time) {
+        _this.submitValid = false
+      }
     })
   }
 }

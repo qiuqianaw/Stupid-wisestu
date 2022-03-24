@@ -1,6 +1,11 @@
 <template>
   <view>
-    <view class="margin-sm" v-for="(item, index) in applyList" :key="index">
+    <view
+      class="margin-sm"
+      v-for="(item, index) in applyList"
+      :key="index"
+      @click="gotoDetail(item)"
+    >
       <view class="cu-bar bg-white solid-bottom">
         <view class="action">
           <text
@@ -69,11 +74,12 @@ export default {
     // auto_() {
     //   console.log('开发中')
     // },
-    // gotoDetail(item) {
-    //   uni.navigateTo({
-    //     url: '/pages/form/index?data=' + JSON.stringify(item)
-    //   })
-    // }
+    gotoDetail(item) {
+      console.log('form data', item)
+      uni.navigateTo({
+        url: '/pages/form/index?data=' + JSON.stringify(item)
+      })
+    }
   },
 
   computed: {}

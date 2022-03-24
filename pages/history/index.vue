@@ -54,6 +54,9 @@ export default {
       getHisApplyList().then((res) => {
         if (res.data.result.list.length != 0) {
           this.applyList = res.data.result.list
+          this.applyList = this.applyList.filter((elem) => {
+            return elem.title == '每日填报'
+          })
         }
       })
     }
