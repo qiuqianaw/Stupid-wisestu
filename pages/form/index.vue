@@ -96,7 +96,20 @@
             </view>
             <!-- 类型： 定位 -->
             <view>
-              <van-cell required title="定位" :label="location">
+              <van-cell
+                required
+                title="定位"
+                :label="
+                  position.address.length != 0
+                    ? position.address +
+                      ' (' +
+                      position.point.lat +
+                      ', ' +
+                      position.point.lng +
+                      ' )'
+                    : '暂无定位'
+                "
+              >
                 <van-button
                   round
                   icon="location-o"
@@ -122,33 +135,78 @@
 </template>
 
 <script>
-import { getApplyDetail, getProvinceAndCity } from '@/api/module.js'
+import {
+  getApplyDetail,
+  getProvinceAndCity,
+  updateApplyDetail
+} from '@/api/module.js'
 
 export default {
   data() {
     return {
-      location: '暂未定位',
       form: [],
       lastForm: [],
       show: false,
-      otherInfo: {}
+      otherInfo: {},
+      formData: null,
+      position: {
+        point: { lng: 0, lat: 0 },
+        address: '',
+        addressComponents: {
+          streetNumber: '',
+          street: '',
+          district: '',
+          city: '',
+          province: ''
+        }
+      }
     }
   },
   watch: {},
   props: {},
   methods: {
+    addResolution(add) {
+      // let add = '四川省成都市双流区商业街18号'
+      let reg = /.+?(省|市|自治区|自治州|县|区)/g
+      let result = add.match(reg)
+      // 直辖市
+      if (result.length == 2) {
+        this.position.addressComponents.province = ''
+        this.position.addressComponents.city = result[0]
+        this.position.addressComponents.district = result[1]
+      } else {
+        this.position.addressComponents.province = result[0]
+        this.position.addressComponents.city = result[1]
+        this.position.addressComponents.district = result[2]
+      }
+    },
+
     onSubmit() {
       console.log(this.lastForm)
+      console.log(this.position)
+
+      let params = {
+        apply_id: this.formData.apply_id,
+        batch_no: this.formData.batch_no,
+        // info_result: JSON.stringify(this.lastForm),
+        // apply_location: JSON.stringify(this.position)
+        info_result: this.lastForm,
+        apply_location: this.position
+      }
+      updateApplyDetail(params).then((res) => {
+        console.log('api ==> ', res)
+      })
     },
 
     getMapLocation() {
       let _this = this
       uni.chooseLocation({
         success: (res) => {
-          console.log('chooseLocation success', res)
-          _this.location =
-            res.name + '(' + res.latitude + ', ' + res.longitude + ')'
-          console.log('_this.location', _this.location)
+          console.log(res)
+          _this.position.address = res.address
+          _this.position.point.lng = res.longitude
+          _this.position.point.lat = res.latitude
+          _this.addResolution(_this.position.address)
         },
         fail: () => {
           uni.getSetting({
@@ -205,14 +263,13 @@ export default {
   onLoad(option) {
     let _this = this
     let data = JSON.parse(option.data)
-    // console.log(data)
+    this.formData = data
 
     getApplyDetail(data).then((res) => {
-      console.log('res', res)
       _this.otherInfo = res.data.result
-      console.log('_this.otherInfo', _this.otherInfo)
       _this.lastForm = res.data.lastInfo
       _this.form = res.data.result.info_config
+      // console.log('res', res)
     })
   }
 }
